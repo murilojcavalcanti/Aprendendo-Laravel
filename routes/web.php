@@ -4,7 +4,7 @@ use App\Http\Controllers\SeriesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/series');
 });
 
 Route::get('/series',[SeriesController::class,'index']);

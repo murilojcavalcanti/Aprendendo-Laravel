@@ -17,7 +17,7 @@ class SeriesController extends Controller
         //usando o eloquent para buscar todos
         //$series = Serie::all();
 
-        $series = Serie::query()->orderBy('nome')->get(0);
+        $series = Serie::query()->orderBy('nome')->get();
 
         
         //return view('series.listar-series',['series'=>$series]);
@@ -28,15 +28,16 @@ class SeriesController extends Controller
         return view('series.create');
     }
     public function store(Request $request){
-        $nomeSerie = $request->input('nome');
+    //$nomeSerie = $request->input('nome');
         //inserindo com comando SQL
         //DB::insert('INSERT INTO series (nome)VALUES(?)',[$nomeSerie]);
         
         //usando eloquent
-        $serie = new Serie();
-        $serie->nome=$nomeSerie;
-        $serie->save();
+        //$serie = new Serie();
+        //$serie->nome=$nomeSerie;
+        //$serie->save();
         
+        Serie::create($request->all());
         return redirect('/series');
             
     }

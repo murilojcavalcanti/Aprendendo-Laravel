@@ -9,7 +9,7 @@
          @endforeach
         
     </ul>
-    <!-- usando para assar variaveis do php para o js-->
+    <!-- usando para acessar variaveis do php para o js-->
     <script>
         const series = {{Js::from($series)}}
     </script>
