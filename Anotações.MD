@@ -9,3 +9,7 @@
 
     - o fillable é um array onde você irá colocar os dados que deseja que sejam salvo dentro do banco de dados.
 
+OBS: Criando rotas usando resources, ele vai criar todas as rotas possiveis, mas quando não queremos usar todas as rotas podemos informar as rotas que queremos usar usando os metodos except ou only.
+
+Obs: Em html so podemos usar os verbos http get e post
+obs: Quando usamos o resources ele usa o primeiro parametro no plural e o segundo no singular em ingles
