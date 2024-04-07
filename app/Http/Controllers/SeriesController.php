@@ -56,7 +56,18 @@ class SeriesController extends Controller
         return to_route('series.index');
             
     }
+    public function destroy(Serie $series,Request $request){
+        
+        $series->delete();
+        $request->session()-> put('mensagem.sucesso',"Série '{$series->nome}' removida com sucesso");
+        return to_route('series.index');
+
+    }
+    /*
     public function destroy(Request $request){
+        //buscando serie
+        //$serie = Serie::find($request->series);
+        
         //dd($request->serie);
         Serie::destroy($request->series);
         
@@ -67,5 +78,6 @@ class SeriesController extends Controller
         //$request->session()-> flash('mensagem.sucesso','Série removida com sucesso');
         
         return to_route('series.index');
-    }
+
+    }*/
 }
