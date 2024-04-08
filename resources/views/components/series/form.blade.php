@@ -1,7 +1,7 @@
 <form action="{{$action}}" method="post">
 @csrf
 <!--verifica se é uma atualização se for usar o metodo put-->
-@isset($nome)
+@isset($update)
     @method('PUT')
 @endisset
     <div class="mb-3">

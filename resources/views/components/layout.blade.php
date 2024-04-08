@@ -13,6 +13,19 @@
     <div class = "container">
         <h1>{{ $title }}</h1>
 
+        <!-- 
+        A variavel errors é uma coleção ja criada pelo laravel que recebe os erros que acontecem dentro de uma requisição
+        o if retorna uma mensagem de erro e fala qual é o erro na pagina index -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{ $slot }}
 
     </div>
