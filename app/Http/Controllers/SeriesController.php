@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SeriesFromRequest;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,28 +38,10 @@ class SeriesController extends Controller
     public function create(){
         return view('series.create');
     }
-    public function store(Request $request){
-        //$nomeSerie = $request->input('nome');
-        //inserindo com comando SQL
-        //DB::insert('INSERT INTO series (nome)VALUES(?)',[$nomeSerie]);
-        
-        //usando eloquent
-        //$serie = new Serie();
-        //$serie->nome=$nomeSerie;
-        //$serie->save();
-       
-        //esse metodo valida as informações do request e caso não sejam atendidas ele volta para a url anterior
-        //não recomendado para api
-        $request->validate([
-            'nome' => ['required', 'min:3' ]
-        ]);
-
-
+    public function store(SeriesFromRequest $request){
+      
         $serie= Serie::create($request->all());
-        //outras sintaxes
-        //return redirect(route('series.index'));
-        //return redirect()->route('series.index');
-
+      
         return to_route('series.index')->with('mensagem.sucesso',"Série '{$serie-> nome}' adicionada com sucesso");
             
     }
@@ -67,7 +50,7 @@ class SeriesController extends Controller
         return view('series.edit')->with('serie',$series);
     }
 
-    public function update (Serie $series,Request $request)
+    public function update (Serie $series,SeriesFromRequest $request)
     {
         //dessa forma, quando tivermos mais atributos teremos que mudar repetir alinha 66 para todos
         //$series->nome=$request->nome;
@@ -86,21 +69,5 @@ class SeriesController extends Controller
         //usando o metodo with a flash message já é usada
         return to_route('series.index')->with('mensagem.sucesso',"Série '{$series->nome}' removida com sucesso");
     }
-    /*
-    public function destroy(Request $request){
-        //buscando serie
-        //$serie = Serie::find($request->series);
-        
-        //dd($request->serie);
-        Serie::destroy($request->series);
-        
-        //Cria uma mensagem de sucesso depois da remoção
-        $request->session()-> put('mensagem.sucesso','Série removida com sucesso');
-        
-        //Usando o flash a mensagem é esquecida automaticamente.
-        //$request->session()-> flash('mensagem.sucesso','Série removida com sucesso');
-        
-        return to_route('series.index');
-
-    }*/
+    
 }

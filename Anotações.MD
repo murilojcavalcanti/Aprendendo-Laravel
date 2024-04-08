@@ -13,3 +13,16 @@ OBS: Criando rotas usando resources, ele vai criar todas as rotas possiveis, mas
 
 Obs: Em html so podemos usar os verbos http get e post
 obs: Quando usamos o resources ele usa o primeiro parametro no plural e o segundo no singular em ingles
+
+Criando uma models ja com uma migration
+php artisan make:model nomeDaModel -m
+
+CRiando relacionamento de entidades com o eloquent
+
+O eloquent não usa um mapeamento de dados.
+
+Para criar um relacionamento de entidades precisamos criar um metodo de relacionamento para realizar esse relacionamento dentro da aplicação.
+
+
+
+
