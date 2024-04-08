@@ -22,12 +22,12 @@ class SeriesController extends Controller
         //recuperando a mensagem de sucesso
         //$mensagemSucesso= $request->session()->get('mensagem.sucesso');
        
-        //usando helper
+        //usando helper - recupera a mensagem de sucesso
         $mensagemSucesso= session('mensagem.sucesso');
         
 
         //Esquece a mensagem
-        $request->session()->forget('mensagem.sucesso');
+//        $request->session()->forget('mensagem.sucesso');
 
         //return view('series.listar-series',['series'=>$series]);
         
@@ -51,17 +51,19 @@ class SeriesController extends Controller
         //outras sintaxes
         //return redirect(route('series.index'));
         //return redirect()->route('series.index');
-        
-        $request->session()-> put('mensagem.sucesso',"Série '{$serie-> nome}' adicionada com sucesso");
-        return to_route('series.index');
+
+        return to_route('series.index')->with('mensagem.sucesso',"Série '{$serie-> nome}' adicionada com sucesso");
             
     }
+
+
+
+
     public function destroy(Serie $series,Request $request){
         
         $series->delete();
-        $request->session()-> put('mensagem.sucesso',"Série '{$series->nome}' removida com sucesso");
-        return to_route('series.index');
-
+        //usando o metodo with a flash message já é usada
+        return to_route('series.index')->with('mensagem.sucesso',"Série '{$series->nome}' removida com sucesso");
     }
     /*
     public function destroy(Request $request){
