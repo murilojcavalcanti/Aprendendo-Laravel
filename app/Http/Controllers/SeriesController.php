@@ -38,7 +38,7 @@ class SeriesController extends Controller
         return view('series.create');
     }
     public function store(Request $request){
-    //$nomeSerie = $request->input('nome');
+        //$nomeSerie = $request->input('nome');
         //inserindo com comando SQL
         //DB::insert('INSERT INTO series (nome)VALUES(?)',[$nomeSerie]);
         
@@ -46,7 +46,13 @@ class SeriesController extends Controller
         //$serie = new Serie();
         //$serie->nome=$nomeSerie;
         //$serie->save();
-        
+       
+        //esse metodo valida as informações do request e caso não sejam atendidas ele volta para a url anterior
+        $request->validate([
+            'nome' => ['required', 'min:3'  ]
+        ]);
+
+
         $serie= Serie::create($request->all());
         //outras sintaxes
         //return redirect(route('series.index'));
