@@ -56,11 +56,14 @@ class SeriesController extends Controller
             
     }
 
-
+    public function edit(Serie $series){
+        //dd($series);
+        return view('series.edit')->with('serie',$series);
+    }
 
 
     public function destroy(Serie $series,Request $request){
-        
+        dd($series);
         $series->delete();
         //usando o metodo with a flash message já é usada
         return to_route('series.index')->with('mensagem.sucesso',"Série '{$series->nome}' removida com sucesso");
@@ -82,4 +85,13 @@ class SeriesController extends Controller
         return to_route('series.index');
 
     }*/
+
+    public function update(Serie $series, Request $request){
+     //Neste formato só é possivel atualizar parametro por parametro
+    //$series->nome = $request->nome;
+    //dessa forma ele passa todos os atributos
+    $series->fill($request->all());
+     $series->save();
+     return to_route('series.index')->with('mensagem.sucesso',"Série '{$series->nome}' atualizada com sucesso");
+    }
 }
