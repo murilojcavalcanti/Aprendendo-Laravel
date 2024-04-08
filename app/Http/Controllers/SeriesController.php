@@ -48,8 +48,9 @@ class SeriesController extends Controller
         //$serie->save();
        
         //esse metodo valida as informações do request e caso não sejam atendidas ele volta para a url anterior
+        //não recomendado para api
         $request->validate([
-            'nome' => ['required', 'min:3'  ]
+            'nome' => ['required', 'min:3' ]
         ]);
 
 
