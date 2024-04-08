@@ -38,7 +38,7 @@ class SeriesController extends Controller
         return view('series.create');
     }
     public function store(Request $request){
-    //$nomeSerie = $request->input('nome');
+        //$nomeSerie = $request->input('nome');
         //inserindo com comando SQL
         //DB::insert('INSERT INTO series (nome)VALUES(?)',[$nomeSerie]);
         
@@ -46,7 +46,14 @@ class SeriesController extends Controller
         //$serie = new Serie();
         //$serie->nome=$nomeSerie;
         //$serie->save();
-        
+       
+        //esse metodo valida as informações do request e caso não sejam atendidas ele volta para a url anterior
+        //não recomendado para api
+        $request->validate([
+            'nome' => ['required', 'min:3' ]
+        ]);
+
+
         $serie= Serie::create($request->all());
         //outras sintaxes
         //return redirect(route('series.index'));
@@ -56,27 +63,11 @@ class SeriesController extends Controller
             
     }
 
-    public function edit(Serie $series){
-        return view('series.edit')->with('serie',$series);
-    }
 
-    public function update (Serie $series,Request $request)
-    {
-        //dessa forma, quando tivermos mais atributos teremos que mudar repetir alinha 66 para todos
-        //$series->nome=$request->nome;
-
-        //nesse formato todos os atributos serão enviados
-        $series->fill($request->all());
-        $series->save();
-
-        return to_route('series.index')->with('mensagem.sucesso',"serie: {$series->nome} atualizada com sucesso!");
-
-        
-    }
 
 
     public function destroy(Serie $series,Request $request){
-        
+        dd($series);
         $series->delete();
         //usando o metodo with a flash message já é usada
         return to_route('series.index')->with('mensagem.sucesso',"Série '{$series->nome}' removida com sucesso");
@@ -98,4 +89,13 @@ class SeriesController extends Controller
         return to_route('series.index');
 
     }*/
+
+    public function update(Serie $series, Request $request){
+     //Neste formato só é possivel atualizar parametro por parametro
+    //$series->nome = $request->nome;
+    //dessa forma ele passa todos os atributos
+    $series->fill($request->all());
+     $series->save();
+     return to_route('series.index')->with('mensagem.sucesso',"Série '{$series->nome}' atualizada com sucesso");
+    }
 }
