@@ -6,8 +6,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/series');
 });
-//usando resource
-Route::resource('/series',SeriesController::class)-> only(['index','create','store','destroy']);
+
+//usando resource                                   usamos para mostra as rotas que não queremos
+Route::resource('/series',SeriesController::class)-> except(['show']);
+//usamos para mostrar as rotas que queremos
+//only(['index','create','store','destroy','edit']) ;
 
 //usando group
 /*Route::controller(SeriesController::class)->group(function(){
