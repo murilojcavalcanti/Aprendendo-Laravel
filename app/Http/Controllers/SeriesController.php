@@ -56,7 +56,23 @@ class SeriesController extends Controller
             
     }
 
+    public function edit(Serie $series){
+        return view('series.edit')->with('serie',$series);
+    }
 
+    public function update (Serie $series,Request $request)
+    {
+        //dessa forma, quando tivermos mais atributos teremos que mudar repetir alinha 66 para todos
+        //$series->nome=$request->nome;
+
+        //nesse formato todos os atributos serão enviados
+        $series->fill($request->all());
+        $series->save();
+
+        return to_route('series.index')->with('mensagem.sucesso',"serie: {$series->nome} atualizada com sucesso!");
+
+        
+    }
 
 
     public function destroy(Serie $series,Request $request){
