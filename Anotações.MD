@@ -23,6 +23,6 @@ O eloquent não usa um mapeamento de dados.
 
 Para criar um relacionamento de entidades precisamos criar um metodo de relacionamento para realizar esse relacionamento dentro da aplicação.
 
-
+podemos criar escopos globais e locais para fazer determinada ação. por ex podemos criar um escopo global para quando formos realizar uma busca o resultado dela ser em ordem alfabetica.
 
 

@@ -12,8 +12,8 @@ class Serie extends Model
 
     //metodo de relacionamento : 1 para muitos
 
-    public function temporadas(){
-        return $this->hasMany(Season::class);
+    public function temporadas(){//classe    chave estrangeira que a classe se ralciona               
+        return $this->hasMany(Season::class,'series_id');
     }
 
     public function episodes(){
