@@ -17,7 +17,8 @@ class SeriesController extends Controller
        
         //usando o eloquent para buscar todos
         //$series = Serie::all();
-
+        //usando desa forma ele ja puxa as temposradas junto com as series
+        //$series = Serie::query()->orderBy('nome')->with(['temporadas'])->get();
         $series = Serie::query()->orderBy('nome')->get();
 
         //recuperando a mensagem de sucesso
@@ -47,7 +48,7 @@ class SeriesController extends Controller
     }
 
     public function edit(Serie $series){
-        dd($series->temporadas);
+        
         return view('series.edit')->with('serie',$series);
     }
 
