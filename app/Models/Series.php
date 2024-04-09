@@ -6,16 +6,16 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Serie extends Model
+class Series extends Model
 {
     use HasFactory;
     protected $fillable=['nome'];
     
     //para puxar as temporadas
-    protected $with=['temporadas'];
+    protected $with=['seasons'];
 
     //metodo de relacionamento : 1 para muitos
-    public function temporadas(){//classe    chave estrangeira que a classe se ralciona               
+    public function seasons(){//classe    chave estrangeira que a classe se ralciona               
         return $this->hasMany(Season::class,'series_id');
     }
 /*
