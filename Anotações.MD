@@ -25,4 +25,6 @@ Para criar um relacionamento de entidades precisamos criar um metodo de relacion
 
 podemos criar escopos globais e locais para fazer determinada ação. por ex podemos criar um escopo global para quando formos realizar uma busca o resultado dela ser em ordem alfabetica.
 
+Deadlock - Pesquisar.
+
 
