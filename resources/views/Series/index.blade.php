@@ -10,7 +10,9 @@
     <ul class = "list-group">
         @foreach ($series as $serie)
             <li class = "list-group-item d-flex justify-content-between align-itens-center">
-                {{ $serie->nome }}
+                <a href="{{route('seasons.index', $serie->id)}}">
+                    {{ $serie->nome }}
+                </a>
                 <span class="d-flex">
                     <!-- /series/id/edit essa é uma rota que o route::resource ja cria-->    
                     <a href="{{ route('series.edit', $serie->id) }}" class="btn btn-primary btn-sm">E</a>

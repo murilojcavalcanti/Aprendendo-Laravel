@@ -12,7 +12,7 @@
             </div>
             <div class="col-2">
                 <label for="seasonsQty" class="form-label">N° de Temporadas</label>
-                <input type="text" id="seasons" name="seasons" class="form-control">
+                <input type="text" id="seasonsQty" name="seasonsQty" class="form-control">
 
             </div>
 

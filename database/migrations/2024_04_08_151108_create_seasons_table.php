@@ -13,18 +13,8 @@ return new class extends Migration
     {
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
-            //tabela usada para mostrar qual é a temporada
             $table->unsignedTinyInteger('number');
-            //sintaxe mais nova
-            //equiva  a:   linha 24        : linha 26       quando deleta a serie, também deleta suas temporadas
             $table->foreignId('series_id')->constrained()->onDelete('cascade');
-
-            //sintaxe antiga paara gerar relacionamento
-            //coluna de id
-            //$table->unsignedBigInteger('series_id');
-            //tabela usada para gerar relacionamento
-           // $table->foreign('series_id')->references('id')->on('series');
-
             $table->timestamps();
         });
     }
