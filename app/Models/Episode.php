@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Episode extends Model
 {
     use HasFactory;
+    protected $fillable = ['number'];
     public $timestamps=false;
 
+
     public function temporada(){
-        return $this->belongsTo(Season::class);
+        return $this->belongsTo(Seasons::class);
     }
 }

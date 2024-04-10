@@ -13,36 +13,26 @@ class SeriesController extends Controller
 {
     public function index(Request $request)
     {
-        //fazendo a query na mão
-        //$series = DB::select('SELECT nome FROM series;');
-       
-        //usando o eloquent para buscar todos
-        //$series = Serie::all();
-        //usando desa forma ele ja puxa as temposradas junto com as series
-        //$series = Serie::query()->orderBy('nome')->with(['temporadas'])->get();
         $series = Series::query()->orderBy('nome')->get();
-
-        //recuperando a mensagem de sucesso
-        //$mensagemSucesso= $request->session()->get('mensagem.sucesso');
-       
-        //usando helper - recupera a mensagem de sucesso
         $mensagemSucesso= session('mensagem.sucesso');
         
-
-        //Esquece a mensagem
-//        $request->session()->forget('mensagem.sucesso');
-
-        //return view('series.listar-series',['series'=>$series]);
-        
-        //para simplificar usamos a função compact
         return view('series.index',compact('series'))->with('mensagemSucesso',$mensagemSucesso);
     }
     public function create(){
         return view('series.create');
     }
     public function store(SeriesFromRequest $request){
-      
         $serie= Series::create($request->all());
+        for($i=1;$i<=$request->seasonsQty;$i++){
+            $season= $serie->Seasons()->create([
+               'number'=>$i,
+            ]);
+            for($j=1;$j<=$request->episodesPerSeason;$j++){
+                $season->Episodes()->create([
+                    'number'=>$j,
+                ]);
+            }
+        }
       
         return to_route('series.index')->with('mensagem.sucesso',"Série '{$serie-> nome}' adicionada com sucesso");
             

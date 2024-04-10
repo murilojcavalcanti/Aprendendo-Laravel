@@ -16,7 +16,7 @@ class Series extends Model
 
     //metodo de relacionamento : 1 para muitos
     public function seasons(){//classe    chave estrangeira que a classe se ralciona               
-        return $this->hasMany(Season::class,'series_id');
+        return $this->hasMany(Seasons::class,'series_id');
     }
 /*
 criação de escopo global
