@@ -24,7 +24,9 @@ class SeriesController extends Controller
     }
     public function store(SeriesFromRequest $request){
 
-        
+        $serie=null;
+        //usado para caso ocorra um erro no salvamento, não salve dados inconcistentes.
+        DB::transaction(function() use ($request,&$serie){        
             $serie= Series::create($request->all());
             $seasons=[];
             for($i=1;$i<=$request->seasonsQty;$i++){
@@ -44,7 +46,7 @@ class SeriesController extends Controller
                 }
             }
             Episode::insert($episodes);
-        
+        });
       
         return to_route('series.index')->with('mensagem.sucesso',"Série '{$serie-> nome}' adicionada com sucesso");
             
