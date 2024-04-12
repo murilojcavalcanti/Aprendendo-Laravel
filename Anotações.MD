@@ -27,4 +27,5 @@ podemos criar escopos globais e locais para fazer determinada ação. por ex pod
 
 Deadlock - Pesquisar.
 
+Repository: É uma classe responsavel por cuidar de toda a logica voltada para banco de dados
 

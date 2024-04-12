@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SeriesFromRequest;
+use App\Http\Requests\SeriesFormRequest;
 use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Series;
+use App\Repositories\EloquentSeriesRepository;
+use App\Repositories\SeriesRepository;
+use App\Repositories\SeriesRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class SeriesController extends Controller
 {
+    public function __construct(private SeriesRepositoryInterface $repository ) {
+  
+    }
     public function index(Request $request)
     {
         $series = Series::query()->orderBy('nome')->get();
@@ -23,34 +29,10 @@ class SeriesController extends Controller
     {
         return view('series.create');
     }
-    public function store(SeriesFromRequest $request)
+    public function store(SeriesFormRequest $request)
     {
-
-
         //usado para caso ocorra um erro no salvamento, não salve dados inconcistentes.
-        $serie = DB::transaction(function () use ($request, &$serie) {
-            $serie = Series::create($request->all());
-            $seasons = [];
-            for ($i = 1; $i <= $request->seasonsQty; $i++) {
-                $seasons[] = [
-                    'series_id' => $serie->id,
-                    'number' => $i,
-                ];
-            }
-            Season::insert($seasons);
-            $episodes = [];
-            foreach ($serie->seasons as $season) {
-                for ($j = 1; $j <= $request->episodesPerSeason; $j++) {
-                    $episodes[] = [
-                        'season_id' => $season->id,
-                        'number' => $j,
-                    ];
-                }
-            }
-            Episode::insert($episodes);
-            return $serie;
-        });
-
+        $serie = $this->repository->add($request);
         return to_route('series.index')->with('mensagem.sucesso', "Série '{$serie->nome}' adicionada com sucesso");
     }
 
@@ -59,7 +41,7 @@ class SeriesController extends Controller
         return view('series.edit')->with('serie', $series);
     }
 
-    public function update(Series $series, SeriesFromRequest $request)
+    public function update(Series $series, SeriesFormRequest $request)
     {
         //dessa forma, quando tivermos mais atributos teremos que mudar repetir alinha 66 para todos
         //$series->nome=$request->nome;
