@@ -6,7 +6,6 @@ use App\Http\Requests\SeriesFromRequest;
 use App\Models\Episode;
 use App\Models\Season;
 use App\Models\Series;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -27,9 +26,9 @@ class SeriesController extends Controller
     public function store(SeriesFromRequest $request)
     {
 
-        try{
+
         //usado para caso ocorra um erro no salvamento, não salve dados inconcistentes.
-        DB::beginTransaction();
+        $serie = DB::transaction(function () use ($request, &$serie) {
             $serie = Series::create($request->all());
             $seasons = [];
             for ($i = 1; $i <= $request->seasonsQty; $i++) {
@@ -49,11 +48,8 @@ class SeriesController extends Controller
                 }
             }
             Episode::insert($episodes);
-           
-            DB::commit();
-        }catch (Exception $e){
-            DB::rollBack();
-        }
+            return $serie;
+        });
 
         return to_route('series.index')->with('mensagem.sucesso', "Série '{$serie->nome}' adicionada com sucesso");
     }
