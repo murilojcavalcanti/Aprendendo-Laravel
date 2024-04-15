@@ -29,3 +29,4 @@ Deadlock - Pesquisar.
 
 Repository: É uma classe responsavel por cuidar de toda a logica voltada para banco de dados
 
+Após a criação de um provider é necessario ir em config/app.php para mostrar que o provider extite, mas em versões mais novas o provider já é adicionado na pasta bootstrap/providers.php

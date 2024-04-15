@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 class SeasonController extends Controller
 {
     public function index( Series $series){
-        $seasons = $series->seasons()->with('episodes')->get();
+
         
+        $seasons = $series->seasons()->with('episodes')->get();
+        //dd($seasons[0]);
         /*query com eager loading
         
         $seasons = Season::query()
